@@ -31,3 +31,22 @@ vector<int> nextGreater(vector<int>& arr){
     }
     return ret;
 }
+
+// Another version not using goto 
+vector<int> nextGreater(vector<int>& arr) 
+{
+    int n = arr.size(); 
+    vector<int> ret(n,-1); // init the n elements of -1 
+    stack<pair<int,int>> s; // arr[i],i
+    s.push({arr[0],0}); 
+    for (int i=1;i<n;i++)
+    {
+        while (!s.empty && s.top().first < arr[i])
+        {
+            ret[s.top().second] = arr[i]; 
+            s.pop(); 
+        }
+        s.push({arr[i],i});
+    }
+    return ret; 
+}
